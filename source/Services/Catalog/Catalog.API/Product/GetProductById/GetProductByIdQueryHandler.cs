@@ -6,19 +6,16 @@
     internal class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
     {
         private IDocumentSession _documentSession;
-        private ILogger<GetProductByIdQueryHandler> _logger;
-        public GetProductByIdQueryHandler(IDocumentSession documentSession, ILogger<GetProductByIdQueryHandler> logger)
+        public GetProductByIdQueryHandler(IDocumentSession documentSession)
         {
             _documentSession = documentSession;
-            _logger = logger;
         }
         public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("GetProductByIdQuery.Handle was Called By {@Query}", query);
             var product = await _documentSession.LoadAsync<Models.Product>(query.ProductId, cancellationToken);
             if (product is null)
             {
-                throw new ProductNotFoundException();
+                throw new ProductNotFoundException(query.ProductId);
             }
             return new GetProductByIdResult(product);
         }

@@ -9,6 +9,16 @@
         public List<string> Categories { get; set; } = new List<string>();
     }
     public record CreateProductResult(Guid Id);
+    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+    {
+        public CreateProductCommandValidator() 
+        {
+            RuleFor(p => p.Name).NotEmpty().WithMessage("Name is required");
+            RuleFor(p => p.Categories).NotEmpty().WithMessage("At least one category must be selected");
+            RuleFor(p => p.Price).NotEmpty().GreaterThan(0).WithMessage("Price must be greated than 0");
+            RuleFor(p => p.ImageFile).NotEmpty().WithMessage("Product image is required");
+        }
+    }
     internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand,CreateProductResult>
     {
         private IDocumentSession _documentSession;
