@@ -4,18 +4,31 @@ services:
   environment:
    - POSTGRES_USER=postgres
    - POSTGRES_PASSWORD=postgres
-   - POSTGRES_DB=CatalgoDb
+   - POSTGRES_DB=CatalogDb
   restart: always
   ports:
    - "5432:5432"
   volumes:
    - postgres_catalog:/var/lib/postgresql/data/
+
+ basketdb:
+  container_name: basketdb
+  environment:
+   - POSTGRES_USER=postgres
+   - POSTGRES_PASSWORD=postgres
+   - POSTGRES_DB=BasketDb
+  restart: always
+  ports:
+   - "5433:5432"
+  volumes:
+   - postgres_basket:/var/lib/postgresql/data/
+
  catalog.api:
   environment:
     - ASPNETCORE_ENVIRONMENT=Development
     - ASPNETCORE_HTTP_PORTS=8080
     - ASPNETCORE_HTTPS_PORTS=8081
-    - ConnectionStrings__DefaultConnection=Host=localhost;Port=5432;Database=CatalgoDb;Username=postgres;Password=postgres
+    - ConnectionStrings__DefaultConnection=Host=localhost;Port=5432;Database=CatalogDb;Username=postgres;Password=postgres
   depends_on:
    - catalogdb
   ports:
