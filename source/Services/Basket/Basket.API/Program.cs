@@ -1,5 +1,3 @@
-using HealthChecks.UI.Client;
-
 namespace Basket.API
 {
     public class Program
@@ -8,7 +6,12 @@ namespace Basket.API
         {
             var builder = WebApplication.CreateBuilder(args);
             // Services
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
+            });
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+            builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
             builder.Services.AddCarter();
             builder.Services.AddMarten(opt =>
             {
@@ -24,7 +27,8 @@ namespace Basket.API
             builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
             builder.Services.AddHealthChecks()
-                .AddNpgSql(builder.Configuration.GetConnectionString("DefaultConnection"));
+                .AddNpgSql(builder.Configuration.GetConnectionString("DefaultConnection"))
+                .AddRedis(builder.Configuration.GetConnectionString("RedisConnection"));
 
             var app = builder.Build();
             // Pipeline

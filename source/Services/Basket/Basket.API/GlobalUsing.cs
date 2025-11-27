@@ -12,4 +12,3 @@ global using Basket.API.Models;
 global using HealthChecks.UI.Client;
 global using Basket.API.Exceptions;
 global using Basket.API.Data;
-
