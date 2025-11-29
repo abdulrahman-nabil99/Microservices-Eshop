@@ -29,7 +29,10 @@ namespace Basket.API
             builder.Services.AddHealthChecks()
                 .AddNpgSql(builder.Configuration.GetConnectionString("DefaultConnection"))
                 .AddRedis(builder.Configuration.GetConnectionString("RedisConnection"));
-
+            builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(opt =>
+            {
+                opt.Address = new Uri(builder.Configuration["gRPCSetting:DiscountUrl"]);
+            });
             var app = builder.Build();
             // Pipeline
             app.MapCarter();

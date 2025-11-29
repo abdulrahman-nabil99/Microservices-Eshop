@@ -69,6 +69,7 @@ services:
    # - ASPNETCORE_HTTPS_PORTS=8081
    - ConnectionStrings__DefaultConnection=Host=basketdb;Port=5432;Database=BasketDb;Username=postgres;Password=postgres
    - ConnectionStrings__RedisConnection=distributedcache:6379
+   - gRPCSetting__DiscountUrl=discount.grpc:5002
   depends_on:
    basketdb: 
     condition: service_healthy
