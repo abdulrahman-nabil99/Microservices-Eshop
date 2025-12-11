@@ -44,6 +44,21 @@ services:
    timeout: 3s
    retries: 5
 
+ orderdb:
+  container_name: orderdb
+  environment:
+   - ACCEPT_EULA=Y
+   - SA_PASSWORD=mssqlserver
+  restart: always
+  ports:
+   - "1433:1433"
+  healthcheck:
+   test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P mssqlserver -Q 'SELECT 1' -C -No || exit 1"]
+   interval: 10s
+   timeout: 5s
+   retries: 5
+   start_period: 30s
+
  catalog.api:
   environment:
     - ASPNETCORE_ENVIRONMENT=Development
