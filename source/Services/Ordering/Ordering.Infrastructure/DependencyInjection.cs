@@ -12,6 +12,7 @@ namespace Ordering.Infrastructure
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddScoped<ISaveChangesInterceptor, AuditableEntitiyInterceptor>();
             services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
             services.AddDbContext<ApplicationDbContext>((sp, options) =>
             {
                 options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
