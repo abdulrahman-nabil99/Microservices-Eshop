@@ -14,7 +14,7 @@ namespace Ordering.API.Endpoints
             {
                 var query = new GetOrdersQuery(request);
                 var result = await sender.Send(query);
-                var response = result.Adapt<GetOrdersByNameResponse>();
+                var response = result.Adapt<GetOrdersResponse>();
 
                 return Results.Ok(response);
             })

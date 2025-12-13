@@ -9,7 +9,7 @@
                 .AsNoTracking()
                 .Include(o => o.OrderItems)
                 .Where(o => o.CustomerId == customerId)
-                .OrderBy(o => o.OrderName)
+                .OrderBy(o => o.OrderName.Value)
                 .ToListAsync(cancellationToken);
             return new(orders.ToOrderDtoList());
         }

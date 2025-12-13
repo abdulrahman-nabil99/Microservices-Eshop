@@ -10,6 +10,7 @@
                 .Include(o => o.OrderItems)
                 .OrderBy(o => o.Id)
                 .Skip(request.Request.PageIndex * request.Request.PageSize)
+                .Take(request.Request.PageSize)
                 .ToListAsync(cancellationToken);
             return new(new(request.Request.PageIndex, request.Request.PageSize, count, orders.ToOrderDtoList()));
         }

@@ -19,7 +19,7 @@
             var billingAddress = CreateAddress(order.BillingAddress);
             var payment = CreatePayment(order.Payment);
             var newOrder = Order.Create(
-                OrderId.Of(new Guid()),
+                OrderId.Of(Guid.NewGuid()),
                 CustomerId.Of(order.CustomerId),
                 OrderName.Of(order.OrderName),
                 shippingAddress,
@@ -40,7 +40,7 @@
 
         private Payment CreatePayment(PaymentDto payment)
         {
-            return Payment.Of(payment.CardName, payment.CardNumber, payment.Expiration, payment.CVV, payment.PaymentMethod);
+            return Payment.Of(payment.CardName, payment.CardNumber, payment.Expiration, payment.Cvv, payment.PaymentMethod);
         }
     }
 }
