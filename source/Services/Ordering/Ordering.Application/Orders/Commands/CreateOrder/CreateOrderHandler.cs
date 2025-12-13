@@ -40,7 +40,7 @@
 
         private Payment CreatePayment(PaymentDto payment)
         {
-            return Payment.Of(payment.CardName, payment.CardNumber, payment.Expiration, payment.Cvv, payment.PaymentMethod);
+            return Payment.Of(payment.CardName, payment.CardNumber, payment.Expiration, payment.CVV, payment.PaymentMethod);
         }
     }
 }
