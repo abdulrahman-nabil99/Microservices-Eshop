@@ -48,14 +48,14 @@ services:
   container_name: orderdb
   environment:
    - ACCEPT_EULA=Y
-   - SA_PASSWORD=mssqlserver
+   - SA_PASSWORD=SqlServer123!
   restart: always
   volumes:
    - mssql_order:/var/opt/mssql
   ports:
    - "1433:1433"
   healthcheck:
-   test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P mssqlserver -Q 'SELECT 1' -C -No || exit 1"]
+   test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P SqlServer123! -Q 'SELECT 1' -C -No || exit 1"]
    interval: 10s
    timeout: 5s
    retries: 5
@@ -120,7 +120,7 @@ services:
   environment:
     - ASPNETCORE_ENVIRONMENT=Development
     - ASPNETCORE_HTTP_PORTS=8080
-    - ConnectionStrings__DefaultConnection=orderdb;Database=OrderDb;User Id=sa;Password=mssqlserver;Encrypt=False;TrustServerCertificate=True
+    - ConnectionStrings__DefaultConnection=orderdb;Database=OrderDb;User Id=sa;Password=SqlServer123!;Encrypt=False;TrustServerCertificate=True
     # - ASPNETCORE_HTTPS_PORTS=8081
   depends_on:
    orderdb: 
