@@ -13,7 +13,7 @@ namespace Ordering.API
             builder.Services
                 .AddApplicationServices()
                 .AddInfrastructureServices(builder.Configuration)
-                .AddApiServices();
+                .AddApiServices(builder.Configuration);
             var app = builder.Build();
             // Add Pipeline
             app.UseApiServices();
