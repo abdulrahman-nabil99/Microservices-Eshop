@@ -65,8 +65,8 @@ services:
   container_name: messagebroker
   hostname: eshop-mq
   environment:
-   - RABBITMQ_DEFAULT_USER=guest
-   - RABBITMQ_DEFAULT_PASS=guest
+   - RABBITMQ_DEFAULT_USER=eshop
+   - RABBITMQ_DEFAULT_PASS=eshop$#123456
   restart: always
   ports:
   - "5672:5672"
@@ -105,8 +105,8 @@ services:
    - ConnectionStrings__RedisConnection=distributedcache:6379
    - gRPCSetting__DiscountUrl=discount.grpc:8080
    - MessageBroker__Host=amqp://messagebroker:5672
-   - MessageBroker__UserName=guest
-   - MessageBroker__Password=guest
+   - MessageBroker__UserName=eshop
+   - MessageBroker__Password=eshop$#123456
   depends_on:
    basketdb: 
     condition: service_healthy
@@ -145,8 +145,8 @@ services:
     - ASPNETCORE_HTTP_PORTS=8080
     - ConnectionStrings__DefaultConnection=Server=orderdb;Database=OrderDb;User Id=sa;Password=SqlServer123!;Encrypt=False;TrustServerCertificate=True
     - MessageBroker__Host=amqp://messagebroker:5672
-    - MessageBroker__UserName=guest
-    - MessageBroker__Password=guest
+    - MessageBroker__UserName=eshop
+    - MessageBroker__Password=eshop$#123456
     # - ASPNETCORE_HTTPS_PORTS=8081
   depends_on:
    orderdb: 
