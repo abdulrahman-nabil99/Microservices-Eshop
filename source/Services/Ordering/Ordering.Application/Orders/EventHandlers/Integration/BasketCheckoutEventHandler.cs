@@ -13,9 +13,7 @@ namespace Ordering.Application.Orders.EventHandlers.Integration
 
             var command = MapToCreateOrderCommand(context.Message);
 
-            var result = await sender.Send(command);
-
-            throw new NotImplementedException();
+            _ = await sender.Send(command);            
         }
 
         private CreateOrderCommand MapToCreateOrderCommand(BasketCheckoutEvent basket)
