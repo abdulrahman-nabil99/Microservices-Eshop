@@ -11,9 +11,10 @@ namespace Ordering.API
             var builder = WebApplication.CreateBuilder(args);
             // --- Add Services HERE ---
             builder.Services
-                .AddApplicationServices()
+                .AddApplicationServices(builder.Configuration)
                 .AddInfrastructureServices(builder.Configuration)
                 .AddApiServices(builder.Configuration);
+
             var app = builder.Build();
             // Add Pipeline
             app.UseApiServices();
